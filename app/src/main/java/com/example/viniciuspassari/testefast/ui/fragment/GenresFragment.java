@@ -17,7 +17,7 @@ import com.example.viniciuspassari.testefast.Presenter.GenresContract;
 import com.example.viniciuspassari.testefast.Presenter.GenresPresenter;
 import com.example.viniciuspassari.testefast.R;
 import com.example.viniciuspassari.testefast.Utils.Common;
-import com.example.viniciuspassari.testefast.Utils.Fragment;
+import com.example.viniciuspassari.testefast.Utils.FragmentUtil;
 import com.example.viniciuspassari.testefast.ui.adapter.GenreAdapter;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class GenresFragment extends BaseFragment implements GenresContract {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_genre_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_genres_list, container, false);
 
         setup(rootView);
 
@@ -95,7 +95,7 @@ public class GenresFragment extends BaseFragment implements GenresContract {
                     bundle.putInt(Genre.BUNDLE_ID, genre.getId());
 
                     MoviesFragment fragment = MoviesFragment.newInstance(bundle);
-                    Fragment.replaceFragment(GenresFragment.this.getFragmentManager(), fragment, MoviesFragment.TAG);
+                    FragmentUtil.replaceFragment(GenresFragment.this.getFragmentManager(), fragment, MoviesFragment.TAG);
                 }
             });
         }

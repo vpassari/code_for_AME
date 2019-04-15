@@ -20,49 +20,52 @@ public class MoviesPresenter implements MoviesContract.Presenter {
     public static final String TAG = MoviesPresenter.class.getName();
 
     private Context context;
-    private MoviesContract moviesView;
+    private MoviesContract moviesListView;
     private API api;
 
-    public MoviesPresenter(Context context, MoviesContract moviesContract){
+    public MoviesPresenter(Context context, MoviesContract moviesListView){
         this.context = context;
-        this.moviesView = moviesContract;
+        this.moviesListView = moviesListView;
         api = API.Builder.build(Constants.BASE_URL);
     }
 
     @Override
     public void getMoviesList(int genreId) {
-        moviesView.showProgress();
+        moviesListView.showProgress();
 
         Call<String> moviesListCall = api.getMoviesByGenre(genreId, Constants.THE_MOVIE_DB_KEY);
 
         moviesListCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                moviesView.hideProgress();
+                moviesListView.hideProgress();
 
                 if(response.isSuccessful()){
                     if(response.code() == Constants.STATUS_CODE_SUCCESS){
                         Log.d(TAG, response.body());
                         MovieConverter converter = new MovieConverter();
                         try {
-                            moviesView.onSuccess(converter.getMovies(response.body()));
+                            moviesListView.onSuccess(converter.getMovies(response.body()));
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            moviesView.onError(context.getString(R.string.generic_error));
+                            moviesListView.onError(context.getString(R.string.generic_error));
                         }
                     }
                     else{
-                        moviesView.onError(context.getString(R.string.error_load_genres));
+                        moviesListView.onError(context.getString(R.string.error_load_genres));
                     }
                 }
                 else{
                     Log.d(TAG, "Error: " + response.errorBody()+"");
+                    moviesListView.onError(context.getString(R.string.generic_error));
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                moviesView.hideProgress();
+                moviesListView.hideProgress();
+                Log.d(TAG, t.getMessage());
+                moviesListView.onError(context.getString(R.string.generic_error));
             }
         });
     }

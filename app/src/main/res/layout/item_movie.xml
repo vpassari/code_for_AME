@@ -16,6 +16,8 @@
         android:id="@+id/tv_movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
         android:paddingLeft="10dp"
         android:paddingStart="10dp"
         android:paddingRight="10dp"

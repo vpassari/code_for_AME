@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import com.example.viniciuspassari.testefast.Presenter.MoviesContract;
 import com.example.viniciuspassari.testefast.Presenter.MoviesPresenter;
 import com.example.viniciuspassari.testefast.R;
 import com.example.viniciuspassari.testefast.Utils.Common;
+import com.example.viniciuspassari.testefast.Utils.FragmentUtil;
+import com.example.viniciuspassari.testefast.ui.MainActivity;
 import com.example.viniciuspassari.testefast.ui.adapter.MovieAdapter;
 
 import java.util.ArrayList;
@@ -42,15 +43,20 @@ public class MoviesFragment extends BaseFragment implements MoviesContract {
     }
 
     public MoviesFragment() {
+        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_movie_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_movies_list, container, false);
 
         setup(rootView);
+
+        if(getActivity() != null && getActivity() instanceof MainActivity){
+            ((MainActivity)getActivity()).showBackArrow();
+        }
 
         if(args != null){
             genreId = args.getInt(Genre.BUNDLE_ID);
@@ -69,6 +75,9 @@ public class MoviesFragment extends BaseFragment implements MoviesContract {
 
         if(getActivity() != null){
             coordinatorLayout = getActivity().findViewById(R.id.coordinator_main);
+            if(getActivity() instanceof MainActivity){
+                ((MainActivity)getActivity()).showToolbar();
+            }
         }
 
         tvNoMovies = rootView.findViewById(R.id.tv_no_movies);
@@ -98,13 +107,16 @@ public class MoviesFragment extends BaseFragment implements MoviesContract {
 
             gridMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Movie movie = (Movie) parent.getItemAtPosition(position);
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Movie movie = (Movie) adapterView.getItemAtPosition(position);
 
-                    Log.d(TAG, movie.getTitle());
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(Movie.BUNDLE_ID, movie.getId());
+
+                    MoviesDetailFragment fragment = MoviesDetailFragment.newInstance(bundle);
+                    FragmentUtil.replaceFragment(MoviesFragment.this.getFragmentManager(), fragment, MoviesDetailFragment.TAG);
                 }
             });
-
         }
         else{
             tvNoMovies.setVisibility(View.VISIBLE);

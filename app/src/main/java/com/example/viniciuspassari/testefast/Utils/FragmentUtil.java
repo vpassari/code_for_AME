@@ -1,21 +1,14 @@
 package com.example.viniciuspassari.testefast.Utils;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.viniciuspassari.testefast.R;
-import com.example.viniciuspassari.testefast.ui.fragment.GenresFragment;
-import com.example.viniciuspassari.testefast.ui.fragment.MoviesFragment;
 
-public class Fragment extends android.support.v4.app.Fragment {
+public class FragmentUtil extends android.support.v4.app.Fragment {
 
-    public static void replaceFragment(FragmentManager fragmentManager, GenresFragment fragment, String backstack){
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contentFrame, fragment, backstack).addToBackStack(null);
-        transaction.commitAllowingStateLoss();
-    }
-
-    public static void replaceFragment(FragmentManager fragmentManager, MoviesFragment fragment, String backstack){
+    public static void replaceFragment(FragmentManager fragmentManager, Fragment fragment, String backstack){
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.contentFrame, fragment, backstack).addToBackStack(null);
         transaction.commitAllowingStateLoss();

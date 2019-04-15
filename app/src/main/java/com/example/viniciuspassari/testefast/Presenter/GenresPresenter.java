@@ -15,7 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GenresPresenter implements GenresContract.Presenter {
+public class GenresPresenter implements GenresContract.Presenter{
 
     public static final String TAG = GenresPresenter.class.getName();
 
@@ -23,7 +23,7 @@ public class GenresPresenter implements GenresContract.Presenter {
     private GenresContract genresListView;
     private API api;
 
-    public GenresPresenter(Context context, GenresContract genresListView) {
+    public GenresPresenter(Context context, GenresContract genresListView){
         this.context = context;
         this.genresListView = genresListView;
         this.api = API.Builder.build(Constants.BASE_URL);
@@ -39,8 +39,8 @@ public class GenresPresenter implements GenresContract.Presenter {
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 genresListView.hideProgress();
 
-                if (response.isSuccessful()) {
-                    if (response.code() == Constants.STATUS_CODE_SUCCESS) {
+                if(response.isSuccessful()){
+                    if(response.code() == Constants.STATUS_CODE_SUCCESS){
                         Log.d(TAG, response.body());
                         GenreConverter converter = new GenreConverter();
                         try {
@@ -49,11 +49,13 @@ public class GenresPresenter implements GenresContract.Presenter {
                             e.printStackTrace();
                             genresListView.onError(context.getString(R.string.generic_error));
                         }
-                    } else {
+                    }
+                    else{
                         genresListView.onError(context.getString(R.string.error_load_genres));
                     }
-                } else {
-                    Log.d(TAG, "Error: " + response.errorBody() + "");
+                }
+                else{
+                    Log.d(TAG, "Error: " + response.errorBody()+"");
                 }
             }
 

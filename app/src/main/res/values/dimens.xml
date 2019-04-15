@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="text_title">16sp</dimen>
+
+    <dimen name="snackbar_textsize">14sp</dimen>
+
+</resources>

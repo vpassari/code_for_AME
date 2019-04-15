@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">testefast</string>
+    <string name="app_name">Teste Fast</string>
+
+    <!-- Genres -->
+    <string name="no_genres">No genres</string>
+    <string name="genre_name">%s\nmovies</string>
+    <string name="no_movies">No movies</string>
+
+    <!-- Error messages -->
+    <string name="generic_error">An error has occurred</string>
+    <string name="error_load_genres">Error loading the genres</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

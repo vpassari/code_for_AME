@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.MoviesListFragment">
+
+    <TextView
+        android:id="@+id/tv_no_movies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_effective"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        android:text="@string/no_movies"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
+    <GridView
+        android:id="@+id/grid_movies"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:columnWidth="130dp"
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:scrollbars="none"/>
+
+</RelativeLayout>
